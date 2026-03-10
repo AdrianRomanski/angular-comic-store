@@ -1,0 +1,54 @@
+---
+description: Core project context, conventions, and accessibility-first development guidelines
+alwaysApply: true
+---
+
+# Project Context
+
+This is a conference demo and homework repo for **"Accessibility Testing Pyramid in Angular with Nx"**. Every feature must demonstrate accessible patterns and be covered by the testing pyramid layers described below.
+
+## Tech Decisions
+
+- **Angular 21** with standalone components, signals, new control flow (`@if`, `@for`, `@switch`), functional guards/resolvers
+- **Angular Material** for UI primitives -- always use Material CDK and components over custom implementations when possible
+- **NgRx SignalStore** for state management (not classic NgRx Store)
+- **Vitest** for unit tests, **Playwright** for e2e, **Guidepup** for screen reader integration tests
+- **Storybook** for component stories with Play Functions
+
+## Nx Monorepo Conventions
+
+- Every new feature **must** be scaffolded via the project's Nx generator (once it exists in `tools/`)
+- Library types: `feature`, `ui`, `data-access`, `util`
+- Tags follow the pattern: `type:<lib-type>`, `scope:<domain>`
+- Enforce module boundaries via `@nx/enforce-module-boundaries`
+
+## Accessibility Requirements
+
+Every component must:
+- Use semantic HTML elements over generic `<div>`/`<span>` where possible
+- Include appropriate ARIA attributes (roles, labels, descriptions) when semantic HTML is insufficient
+- Support full keyboard navigation (Tab, Shift+Tab, Arrow keys, Enter, Escape as appropriate)
+- Manage focus correctly on route changes, dialog open/close, and dynamic content updates
+- Respect `prefers-reduced-motion` and `prefers-color-scheme`
+- Pass axe-core automated checks with zero violations
+
+## Testing Pyramid
+
+1. **Unit** (Vitest + axe-core + Component Harness): WCAG violations, focus management, keyboard nav, aria updates
+2. **Integration** (Guidepup): Screen reader reading order, announcements, non-visual operability
+3. **Story/E2E** (Storybook Play Functions): Full interaction paths, themes, tokens
+4. **Scaffolding** (Nx Generators): Auto-generate accessible boilerplate
+
+## Task Numbering
+
+Tasks are tracked in `TASKS.md`. Each task gets the next sequential integer. Never reuse or reorder numbers. Reference task number in branch names: `task-{number}-{slug}`.
+
+## Commit Convention
+
+Use Conventional Commits: `<type>(scope): <subject>`.
+
+Types: `feat`, `fix`, `docs`, `build`, `refactor`, `test`, `style`, `ci`, `chore`, `a11y`.
+
+- Imperative mood, lowercase, no trailing period, max 72 chars
+- Include `Task: #N` in the footer when the commit relates to a task
+- Every task in `TASKS.md` also has a type matching this convention

@@ -1,0 +1,42 @@
+---
+description: Angular component authoring standards and accessibility patterns
+globs: **/*.ts
+alwaysApply: false
+---
+
+# Angular Component Standards
+
+## Component Structure
+
+- **Standalone only** -- never use `NgModule`-based components
+- **OnPush** change detection by default
+- **Separate template** (`.html`) and **style** (`.scss`) files -- no inline templates or styles
+- **Prefix**: `app-` for the main app, library-specific prefix for libs (e.g., `comics-`, `shared-`)
+
+## Modern Angular Patterns
+
+- Use **signals** (`signal()`, `computed()`, `effect()`) for reactive state
+- Use **new control flow**: `@if`, `@for`, `@switch` -- never `*ngIf`, `*ngFor`, `*ngSwitch`
+- Use **functional guards and resolvers** -- no class-based
+- Use `input()` / `output()` signal-based APIs over `@Input()` / `@Output()` decorators
+- Use `inject()` function over constructor injection
+
+## Angular Material
+
+- Import only the specific Material modules/components needed
+- Use Material CDK (`@angular/cdk`) utilities for a11y: `FocusTrap`, `LiveAnnouncer`, `FocusMonitor`
+- Prefer Material form-field components for form inputs to get built-in a11y
+
+## Accessibility in Templates
+
+- Every interactive element must be keyboard-operable
+- Images require `alt` attributes (empty `alt=""` for decorative images)
+- Form controls must have associated labels (Material `<mat-label>` or `aria-label`)
+- Dynamic content changes must notify screen readers via `LiveAnnouncer` or `aria-live` regions
+- Route changes must move focus to the main content area or announce the new page
+
+## Component Test File
+
+Every component must have a `.spec.ts` file that includes:
+- axe-core accessibility audit (`expect(await axe(fixture)).toHaveNoViolations()`)
+- Component Harness tests for keyboard interaction and focus behavior
