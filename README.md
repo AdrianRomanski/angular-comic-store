@@ -1,82 +1,130 @@
-# Y
+# Angular Comic Store
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+> A living demo and homework repository for the conference talk:
+> **"Accessibility Testing Pyramid in Angular with Nx"**
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+## About
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+This repository accompanies a conference session on building accessible Angular applications with a clear, layered testing strategy inside an Nx monorepo.
 
-## Finish your remote caching setup
+It serves two purposes:
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/cDZikT95hk)
+1. **Live demo** -- each feature illustrates a specific layer of the accessibility testing pyramid.
+2. **Homework assignments** -- numbered tasks that let attendees practice each concept hands-on.
 
+## Accessibility Testing Pyramid
 
-## Run tasks
+The talk introduces a four-layer pyramid that moves from fast, automated checks at the base to high-fidelity, real-user validation at the top.
 
-To run the dev server for your app, use:
+```mermaid
+graph BT
+    Unit["Unit Tests\nVitest + axe-core + Component Harness"]
+    Integration["Integration Tests\nGuidepup — VoiceOver / NVDA"]
+    E2E["Story Tests\nStorybook Play Functions"]
+    Generators["Scaffolding\nNx Generators"]
 
-```sh
-npx nx serve angular-comic-store 
+    Unit --> Integration --> E2E --> Generators
 ```
 
-To create a production bundle:
+| Layer | Tool | What it covers |
+|-------|------|----------------|
+| **Unit** | Vitest, axe-core, Angular Component Harness | WCAG violations (contrast, ARIA, roles, labels), focus management, keyboard navigation, dynamic aria updates, interactive states |
+| **Integration** | Guidepup (VoiceOver / NVDA) | Reading order, screen-reader announcements, operability for non-visual users |
+| **Story / E2E** | Storybook Play Functions | Full component stories, themes, tokens, interaction paths inside the design system |
+| **Scaffolding** | Nx Generators | Auto-generate accessible components, harnesses, stories, and tests so a11y is built-in from the start |
 
-```sh
-npx nx build angular-comic-store 
+## Tech Stack
+
+| Category | Technology |
+|----------|------------|
+| Framework | Angular 21 |
+| Monorepo | Nx 22.5 |
+| UI Components | Angular Material |
+| State Management | NgRx (SignalStore) |
+| Unit Testing | Vitest, axe-core, Angular Component Harness |
+| E2E Testing | Playwright |
+| Screen Reader Testing | Guidepup |
+| Component Workshop | Storybook |
+| Linting | ESLint, Prettier |
+| Styles | SCSS |
+
+## Monorepo Structure
+
+```
+angular-comic-store/
+├── apps/
+│   ├── angular-comic-store/    # Main application
+│   └── angular-comic-store-e2e/ # Playwright e2e tests
+├── libs/                        # Shared libraries (feature, UI, data-access, util)
+├── tools/                       # Nx generators and workspace scripts
+├── TASKS.md                     # Numbered task index
+├── CONTRIBUTING.md              # Contributor guidelines
+└── nx.json                      # Nx workspace configuration
 ```
 
-To see all available targets to run for a project, run:
+Libraries will follow Nx library-type conventions:
 
-```sh
-npx nx show project angular-comic-store 
+| Type | Purpose | Example |
+|------|---------|---------|
+| `feature` | Smart components, pages, routing | `libs/comics/feature-browse` |
+| `ui` | Presentational (dumb) components | `libs/shared/ui-card` |
+| `data-access` | State management, API services | `libs/comics/data-access` |
+| `util` | Pure functions, helpers, pipes | `libs/shared/util-a11y` |
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js >= 20
+- npm >= 10
+
+### Install
+
+```bash
+git clone https://github.com/<your-username>/angular-comic-store.git
+cd angular-comic-store
+npm install
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+### Develop
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Add new projects
-
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-Use the plugin's generator to create new projects.
-
-To generate a new application, use:
-
-```sh
-npx nx g @nx/angular:app demo
+```bash
+npx nx serve angular-comic-store
 ```
 
-To generate a new library, use:
+### Test
 
-```sh
-npx nx g @nx/angular:lib mylib
+```bash
+# Unit tests
+npx nx test angular-comic-store
+
+# Lint
+npx nx lint angular-comic-store
+
+# E2E
+npx nx e2e angular-comic-store-e2e
 ```
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+### Visualize the project graph
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+```bash
+npx nx graph
+```
 
+## Task Index
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+All tasks are tracked in [`TASKS.md`](./TASKS.md). Each task has a sequential number that never changes once assigned. See that file for the full list with statuses and branch references.
 
-## Install Nx Console
+## Resources
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+- [WCAG 2.2 Quick Reference](https://www.w3.org/WAI/WCAG22/quickref/)
+- [axe-core](https://github.com/dequelabs/axe-core)
+- [Angular CDK Accessibility](https://material.angular.io/cdk/a11y/overview)
+- [Angular Component Harness](https://material.angular.io/cdk/test-harnesses/overview)
+- [Guidepup](https://www.guidepup.dev/)
+- [Storybook Accessibility Addon](https://storybook.js.org/addons/@storybook/addon-a11y)
+- [Nx Documentation](https://nx.dev)
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## License
 
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+MIT

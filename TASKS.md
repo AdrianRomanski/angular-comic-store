@@ -1,0 +1,32 @@
+# Tasks
+
+Numbered task index for the Angular Comic Store accessibility demo.
+
+## Convention
+
+- Each task gets the **next sequential integer** -- numbers are never reused or reordered.
+- Every task has a **type** that matches the commit type convention (see below).
+- Branch name: `task-{number}-{slug}` (e.g., `task-1-foundational-docs`).
+- Update the status column as work progresses.
+- Statuses: `planned` | `in-progress` | `done`
+
+### Task Types
+
+| Type | Description |
+|------|-------------|
+| `feat` | New feature or user-facing functionality |
+| `fix` | Bug fix |
+| `docs` | Documentation only |
+| `build` | Build system, dependencies, Nx config |
+| `refactor` | Code restructuring with no behavior change |
+| `test` | Adding or updating tests |
+| `style` | Formatting, whitespace, SCSS (no logic change) |
+| `ci` | CI/CD pipeline configuration |
+| `chore` | Tooling, generators, maintenance |
+| `a11y` | Accessibility improvement (ARIA, keyboard, focus) |
+
+## Index
+
+| # | Type | Title | Description | Status | Branch |
+|---|------|-------|-------------|--------|--------|
+| 1 | docs | Foundational docs and context | README, CONTRIBUTING, Cursor rules, task tracking system | in-progress | `task-1-foundational-docs` |
