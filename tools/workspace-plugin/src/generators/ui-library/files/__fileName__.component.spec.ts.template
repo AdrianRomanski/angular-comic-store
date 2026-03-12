@@ -1,0 +1,38 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
+import { axe } from 'vitest-axe';
+import * as matchers from 'vitest-axe/matchers';
+import { <%= className %>Component } from './<%= fileName %>.component';
+import { <%= className %>ComponentHarness } from './<%= fileName %>.component.harness';
+
+expect.extend(matchers);
+
+describe('<%= className %>Component', () => {
+  let component: <%= className %>Component;
+  let fixture: ComponentFixture<<%= className %>Component>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [<%= className %>Component],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(<%= className %>Component);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should have no accessibility violations', async () => {
+    const results = await axe(fixture.nativeElement);
+    expect(results).toHaveNoViolations();
+  });
+
+  it('should be accessible via component harness', async () => {
+    const loader = TestbedHarnessEnvironment.loader(fixture);
+    const harness = await loader.getHarness(<%= className %>ComponentHarness);
+    expect(harness).toBeTruthy();
+  });
+});
