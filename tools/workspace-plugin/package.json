@@ -1,6 +1,0 @@
-{
-  "name": "@angular-comic-store/workspace-plugin",
-  "version": "1.0.0",
-  "private": true,
-  "generators": "./generators.json"
-}
