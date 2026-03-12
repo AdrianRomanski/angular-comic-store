@@ -1,22 +1,33 @@
 import 'vitest-axe/extend-expect';
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { axe } from 'vitest-axe';
 import { <%= className %>Component } from './<%= fileName %>.component';
 import { <%= className %>ComponentHarness } from './<%= fileName %>.component.harness';
 
+@Component({
+  standalone: true,
+  imports: [<%= className %>Component],
+  template: `<ui-<%= fileName %> />`,
+})
+class TestWrapper<%= className %>Component {}
+
 describe('<%= className %>Component', () => {
-  let component: <%= className %>Component;
-  let fixture: ComponentFixture<<%= className %>Component>;
+  let component: TestWrapper<%= className %>Component;
+  let fixture: ComponentFixture<TestWrapper<%= className %>Component>;
+  let loader: HarnessLoader;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [<%= className %>Component],
+      imports: [TestWrapper<%= className %>Component],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(<%= className %>Component);
+    fixture = TestBed.createComponent(TestWrapper<%= className %>Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    loader = TestbedHarnessEnvironment.loader(fixture);
   });
 
   it('should create', () => {
@@ -29,7 +40,7 @@ describe('<%= className %>Component', () => {
   });
 
   it('should be accessible via component harness', async () => {
-    const harness = await TestbedHarnessEnvironment.harnessForFixture(fixture, <%= className %>ComponentHarness);
+    const harness = await loader.getHarness(<%= className %>ComponentHarness);
     expect(harness).toBeTruthy();
   });
 });
