@@ -30,3 +30,4 @@ Numbered task index for the Angular Comic Store accessibility demo.
 | # | Type | Title | Description | Status | Branch |
 |---|------|-------|-------------|--------|--------|
 | 1 | docs | Foundational docs and context | README, CONTRIBUTING, Cursor rules, task tracking system | in-progress | `task-1-foundational-docs` |
+| 2 | chore | UI library Nx generator | Workspace plugin with ui-library generator that scaffolds Angular UI libs with component and harness | done | `task-2-ui-library-generator` |
