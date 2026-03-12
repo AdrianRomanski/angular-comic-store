@@ -81,6 +81,7 @@ export default async function uiLibraryGenerator(
   await libraryGenerator(tree, {
     directory: opts.directory,
     name: `ui-${opts.fileName}`,
+    importPath: `@angular-comic-store/ui-${opts.fileName}`,
     prefix: 'ui',
     standalone: true,
     style: 'scss',

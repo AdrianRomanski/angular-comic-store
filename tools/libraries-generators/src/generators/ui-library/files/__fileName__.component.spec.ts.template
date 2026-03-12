@@ -1,11 +1,9 @@
+import 'vitest-axe/extend-expect';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { axe } from 'vitest-axe';
-import * as matchers from 'vitest-axe/matchers';
 import { <%= className %>Component } from './<%= fileName %>.component';
 import { <%= className %>ComponentHarness } from './<%= fileName %>.component.harness';
-
-expect.extend(matchers);
 
 describe('<%= className %>Component', () => {
   let component: <%= className %>Component;
@@ -31,8 +29,7 @@ describe('<%= className %>Component', () => {
   });
 
   it('should be accessible via component harness', async () => {
-    const loader = TestbedHarnessEnvironment.loader(fixture);
-    const harness = await loader.getHarness(<%= className %>ComponentHarness);
+    const harness = await TestbedHarnessEnvironment.harnessForFixture(fixture, <%= className %>ComponentHarness);
     expect(harness).toBeTruthy();
   });
 });
