@@ -1,0 +1,9 @@
+{
+  "generators": {
+    "ui-library": {
+      "factory": "./src/generators/ui-library/index",
+      "schema": "./src/generators/ui-library/schema.json",
+      "description": "Generate an Angular UI library with a standalone component and component harness"
+    }
+  }
+}
