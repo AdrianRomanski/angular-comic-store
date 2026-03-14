@@ -29,6 +29,7 @@ Numbered task index for the Angular Comic Store accessibility demo.
 
 | # | Type | Title | Description | Status | Branch |
 |---|------|-------|-------------|--------|--------|
-| 1 | docs | Foundational docs and context | README, CONTRIBUTING, Cursor rules, task tracking system | in-progress | `task-1-foundational-docs` |
+| 1 | docs | Foundational docs and context | README, CONTRIBUTING, Cursor rules, task tracking system | done | `task-1-foundational-docs` |
 | 2 | chore | UI library Nx generator | Workspace plugin with ui-library generator that scaffolds Angular UI libs with component and harness | done | `task-2-ui-library-generator` |
-| 3 | chore | Generator axe-core WCAG compliance helpers | Split axe-core helper into per-level functions (A, AA, AAA, best-practice) with shared `runAxe`, update generator template and specs, add `@angular-comic-store/test-helpers` util library | in-progress | `task-3-generator-axe-con-wcag-compliance` |
+| 3 | chore | Generator axe-core WCAG compliance helpers | Split axe-core helper into per-level functions (A, AA, AAA, best-practice) with shared `runAxe`, update generator template and specs, add `@angular-comic-store/test-helpers` util library | done | `task-3-generator-axe-con-wcag-compliance` |
+| 4 | docs | Agentic development workflow | Document the 3-phase development workflow (Analysis, Planning, Implementation) in project context rule and MCP config for Cursor-driven agentic development | done | `task-4-agentic-development-workflow` |
