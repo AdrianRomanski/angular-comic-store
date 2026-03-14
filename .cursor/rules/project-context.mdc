@@ -52,3 +52,29 @@ Types: `feat`, `fix`, `docs`, `build`, `refactor`, `test`, `style`, `ci`, `chore
 - Imperative mood, lowercase, no trailing period, max 72 chars
 - Include `Task: #N` in the footer when the commit relates to a task
 - Every task in `TASKS.md` also has a type matching this convention
+
+## Development Workflow
+
+Every feature follows a strict 3-phase workflow. The phases map to Cursor modes: **Plan** for phases 1–2, **Agent** for phase 3.
+
+### Phase 1 — Analysis (Plan mode)
+
+1. The user describes the feature
+2. Collaboratively create a minimalistic plan: scope, acceptance criteria, definition of done
+3. Create a GitHub issue (and sub-issues if needed) via the GitHub MCP
+4. Update `TASKS.md` with the new task entry (status: `todo`)
+
+### Phase 2 — Planning (Plan mode)
+
+1. The user provides the issue/task number
+2. Collaboratively create a comprehensive implementation plan covering architecture, component structure, accessibility approach, and testing strategy
+3. Update the task status in `TASKS.md` to `in progress`
+
+### Phase 3 — Implementation (Agent mode)
+
+1. The user provides the task number from `TASKS.md`
+2. Create a new branch from `origin/main` following the naming convention: `task-{number}-{slug}`
+3. Update the task status in `TASKS.md` to `in progress` (if not already)
+4. Implement the feature according to the plan
+5. Verify the implementation (lint, tests, accessibility checks)
+6. When the user confirms the work is complete, create a PR via the GitHub MCP with a full description
