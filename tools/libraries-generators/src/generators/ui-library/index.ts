@@ -118,7 +118,12 @@ export default async function uiLibraryGenerator(
   addDependenciesToPackageJson(
     tree,
     { '@angular/cdk': '~21.1.0' },
-    { 'vitest-axe': '^1.0.0-pre.5', 'vitest-canvas-mock': '^1.1.0' }
+    {
+      'vitest-axe': '^1.0.0-pre.5',
+      'vitest-canvas-mock': '^1.1.0',
+      '@guidepup/virtual-screen-reader': '^0.32.1',
+      '@guidepup/guidepup': '^0.24.1',
+    }
   );
 
   await formatFiles(tree);

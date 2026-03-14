@@ -28,8 +28,9 @@ Numbered task index for the Angular Comic Store accessibility demo.
 ## Index
 
 | # | Type | Title | Description | Status | Branch |
-|---|------|-------|-------------|--------|--------|
-| 1 | docs | Foundational docs and context | README, CONTRIBUTING, Cursor rules, task tracking system | done | `task-1-foundational-docs` |
-| 2 | chore | UI library Nx generator | Workspace plugin with ui-library generator that scaffolds Angular UI libs with component and harness | done | `task-2-ui-library-generator` |
-| 3 | chore | Generator axe-core WCAG compliance helpers | Split axe-core helper into per-level functions (A, AA, AAA, best-practice) with shared `runAxe`, update generator template and specs, add `@angular-comic-store/test-helpers` util library | done | `task-3-generator-axe-con-wcag-compliance` |
-| 4 | docs | Agentic development workflow | Document the 3-phase development workflow (Analysis, Planning, Implementation) in project context rule and MCP config for Cursor-driven agentic development | done | `task-4-agentic-development-workflow` |
+|---|------|-------|-------------|-------|--------|
+| 1 | docs | Foundational docs and context | README, CONTRIBUTING, Cursor rules, task tracking system | done  | `task-1-foundational-docs` |
+| 2 | chore | UI library Nx generator | Workspace plugin with ui-library generator that scaffolds Angular UI libs with component and harness | done  | `task-2-ui-library-generator` |
+| 3 | chore | Generator axe-core WCAG compliance helpers | Split axe-core helper into per-level functions (A, AA, AAA, best-practice) with shared `runAxe`, update generator template and specs, add `@angular-comic-store/test-helpers` util library | done  | `task-3-generator-axe-con-wcag-compliance` |
+| 4 | docs | Agentic development workflow | Document the 3-phase development workflow (Analysis, Planning, Implementation) in project context rule and MCP config for Cursor-driven agentic development | done  | `task-4-agentic-development-workflow` |
+| 5 | chore | Generator Guidepup support | Add Guidepup virtual screen reader to ui-library generator for unit testing and wire Playwright integration test template | done  | `task-9-generator-guidepup` |
