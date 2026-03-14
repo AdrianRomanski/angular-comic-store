@@ -59,6 +59,23 @@ function createComponentFiles(tree: Tree, opts: NormalizedOptions): void {
   });
 }
 
+function patchTestSetup(tree: Tree, opts: NormalizedOptions): void {
+  const testSetupPath = joinPathFragments(opts.directory, 'src', 'test-setup.ts');
+
+  if (tree.exists(testSetupPath)) {
+    const content = tree.read(testSetupPath, 'utf-8')!;
+    if (!content.includes('vitest-canvas-mock')) {
+      tree.write(
+        testSetupPath,
+        content.replace(
+          "import '@angular/compiler';",
+          "import '@angular/compiler';\nimport 'vitest-canvas-mock';"
+        )
+      );
+    }
+  }
+}
+
 function updateBarrelExport(tree: Tree, opts: NormalizedOptions): void {
   const indexPath = joinPathFragments(opts.directory, 'src', 'index.ts');
 
@@ -95,12 +112,13 @@ export default async function uiLibraryGenerator(
 
   removeDefaultComponentFiles(tree, opts);
   createComponentFiles(tree, opts);
+  patchTestSetup(tree, opts);
   updateBarrelExport(tree, opts);
 
   addDependenciesToPackageJson(
     tree,
     { '@angular/cdk': '~21.1.0' },
-    { 'vitest-axe': '^1.0.0-pre.5' }
+    { 'vitest-axe': '^1.0.0-pre.5', 'vitest-canvas-mock': '^1.1.0' }
   );
 
   await formatFiles(tree);
