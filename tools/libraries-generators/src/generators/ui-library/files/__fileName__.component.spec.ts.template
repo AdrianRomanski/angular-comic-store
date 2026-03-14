@@ -1,9 +1,8 @@
-import 'vitest-axe/extend-expect';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-import { axe } from 'vitest-axe';
+import { expectWcagAACompliant, expectBestPracticesCompliant, expectWcagACompliant } from '@angular-comic-store/test-helpers';
 import { <%= className %>Component } from './<%= fileName %>.component';
 import { <%= className %>ComponentHarness } from './<%= fileName %>.component.harness';
 
@@ -30,17 +29,28 @@ describe('<%= className %>Component', () => {
     loader = TestbedHarnessEnvironment.loader(fixture);
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+ describe('Unit', () => {
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('should be accessible via component harness', async () => {
+      const harness = await loader.getHarness(<%= className %>ComponentHarness);
+      expect(harness).toBeTruthy();
+    });
   });
 
-  it('should have no accessibility violations', async () => {
-    const results = await axe(fixture.nativeElement);
-    expect(results).toHaveNoViolations();
-  });
+  describe('Regression - WCAG Compliance', () => {
+    it('should be WCAG A compliant', async () => {
+      await expectWcagACompliant(fixture);
+    });
 
-  it('should be accessible via component harness', async () => {
-    const harness = await loader.getHarness(<%= className %>ComponentHarness);
-    expect(harness).toBeTruthy();
+    it('should be WCAG AA compliant', async () => {
+      await expectWcagAACompliant(fixture);
+    });
+
+    it('should follow best practices', async () => {
+      await expectBestPracticesCompliant(fixture);
+    });
   });
-});
+})
