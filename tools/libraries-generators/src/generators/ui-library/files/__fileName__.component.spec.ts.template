@@ -29,15 +29,48 @@ describe('<%= className %>Component', () => {
     loader = TestbedHarnessEnvironment.loader(fixture);
   });
 
- describe('Unit', () => {
-    it('should create', () => {
-      expect(component).toBeTruthy();
+  /**
+   * POUR: the four WCAG principles — Perceivable, Operable, Understandable, Robust.
+   * They ensure content is presentable to users, operable via keyboard and other means,
+   * understandable (readable and predictable), and robust with assistive technologies.
+   */
+  describe('POUR', () => {
+    /**
+     * Perceivable: information and UI must be presentable to users in ways they can perceive
+     * (e.g. text alternatives, captions, color contrast). WCAG compliance tests run in the block below.
+     */
+    describe('Perceivable', () => {});
+
+    /**
+     * Operable: UI and navigation must be operable (keyboard access, no time-only interactions,
+     * focus management, clear navigation).
+     */
+    describe('Operable', () => {
+      it('should create', () => {
+        expect(component).toBeTruthy();
+      });
+
+      it('should be accessible via component harness', async () => {
+        const harness = await loader.getHarness(<%= className %>ComponentHarness);
+        expect(harness).toBeTruthy();
+      });
     });
 
-    it('should be accessible via component harness', async () => {
-      const harness = await loader.getHarness(<%= className %>ComponentHarness);
-      expect(harness).toBeTruthy();
+    /**
+     * Understandable: content and operation must be understandable (readable language,
+     * predictable behavior, input assistance and error identification).
+     */
+    describe('Understandable', () => {
+      it('should follow best practices', async () => {
+        await expectBestPracticesCompliant(fixture);
+      });
     });
+
+    /**
+     * Robust: content must be robust enough for assistive technologies (valid markup,
+     * name/role/value). Screen reader tests run in the block below.
+     */
+    describe('Robust', () => {});
   });
 
   describe('Regression - WCAG Compliance', () => {
@@ -48,13 +81,9 @@ describe('<%= className %>Component', () => {
     it('should be WCAG AA compliant', async () => {
       await expectWcagAACompliant(fixture);
     });
-
-    it('should follow best practices', async () => {
-      await expectBestPracticesCompliant(fixture);
-    });
   });
 
-  describe('Screen Reader', () => {
+  describe('Regression - Screen Reader', () => {
     afterEach(async () => {
       await stopVirtualScreenReader();
     });
@@ -65,4 +94,4 @@ describe('<%= className %>Component', () => {
       expect(phrases.length).toBeGreaterThan(0);
     });
   });
-})
+});

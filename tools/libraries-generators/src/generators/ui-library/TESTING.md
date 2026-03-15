@@ -8,23 +8,43 @@ The generator produces three test layers per component:
 
 | File | Layer | Purpose |
 |------|-------|---------|
-| `<name>.component.spec.ts` | Unit + Regression + Screen Reader | Component creation, Component Harness access, WCAG audits, best-practice audits, virtual screen reader |
+| `<name>.component.spec.ts` | Unit (POUR) + Screen Reader | POUR-categorized: component creation, harness access, WCAG audits (Perceivable, Understandable), best-practice audits, virtual screen reader (Robust) |
 | `integration/<name>.screen-reader.spec.ts` | Integration | Real screen reader testing via Guidepup + Playwright (VoiceOver / NVDA) |
 
-### Unit spec
+### POUR structure (unit spec)
+
+**What is POUR?** POUR is the acronym for the four foundational principles of WCAG: **P**erceivable, **O**perable, **U**nderstandable, **R**obust. They ensure content is presentable to users, operable via keyboard and other means, understandable (readable and predictable), and robust with assistive technologies. The spec includes a short description before the POUR block and before each principle block; WCAG compliance and screen reader tests live in sibling blocks below.
 
 ```
 describe('ComponentName')
-├── describe('Unit')
-│   ├── it('should create')
-│   └── it('should be accessible via component harness')
-├── describe('Regression')
-│   ├── it('should be WCAG A compliant')        ← expectWcagACompliant
-│   ├── it('should be WCAG AA compliant')       ← expectWcagAACompliant
-│   └── it('should follow best practices')      ← expectBestPracticesCompliant
+├── describe('POUR')                    ← short description of what POUR is
+│   ├── describe('Perceivable')        ← description only; tests in Regression - WCAG Compliance
+│   ├── describe('Operable')           ← description + should create, accessible via harness
+│   ├── describe('Understandable')     ← description + should follow best practices
+│   └── describe('Robust')             ← description only; tests in Screen Reader block
+├── describe('Regression - WCAG Compliance')
+│   ├── it('should be WCAG A compliant')     ← expectWcagACompliant (Perceivable)
+│   └── it('should be WCAG AA compliant')    ← expectWcagAACompliant (Perceivable)
 └── describe('Screen Reader')
-    └── it('should have meaningful spoken output') ← @guidepup/virtual-screen-reader
+    └── it('should have meaningful spoken output')  ← @guidepup/virtual-screen-reader (Robust)
 ```
+
+| POUR principle | Description | Where tested |
+|----------------|-------------|--------------|
+| **Perceivable** | Information and UI presentable (e.g. text alternatives, contrast) | Regression - WCAG Compliance |
+| **Operable** | UI operable (keyboard, focus, navigation) | POUR > Operable |
+| **Understandable** | Content readable and predictable, input assistance | POUR > Understandable |
+| **Robust** | Works with assistive tech (valid semantics) | Screen Reader block |
+
+**POUR references:**
+
+- [Recite Me — POUR accessibility principles](https://reciteme.com/news/pour-accessibility-principles/)
+- [Medium — 13 guidelines of accessibility](https://medium.com/design-bootcamp/13-guidelines-of-accessibility-cb104983e223)
+- [UMich — POUR concepts and principles](https://accessibility.umich.edu/basics/concepts-principles/pour)
+- [WebYes — WCAG POUR principles](https://www.webyes.com/blogs/wcag-pour-principles-accessibility/)
+- [W3C — Understanding the four principles of accessibility](https://www.w3.org/WAI/WCAG21/Understanding/intro#understanding-the-four-principles-of-accessibility)
+
+The axe-based tests delegate to dedicated helpers from `@angular-comic-store/test-helpers` (see below).
 
 ### Integration spec
 
@@ -166,22 +186,21 @@ For completeness, here are all relevant axe-core tags and how our helpers map to
 │  Layer 2: Integration (Guidepup + Playwright)       │  ← Integration specs land here
 │  Real screen reader order, announcements            │
 ├─────────────────────────────────────────────────────┤
-│  Layer 1: Unit (Vitest + CDK Harness + axe-core     │  ← Unit + regression + virtual SR
+│  Layer 1: Unit (Vitest + CDK Harness + axe-core     │  ← POUR-categorized unit + virtual SR
 │           + Virtual Screen Reader)                  │
 │  Component creation, harness, WCAG, spoken output   │
 └─────────────────────────────────────────────────────┘
 ```
 
-- **Unit tests** (`*.spec.ts` Unit block) verify component creation and Component Harness access. Fast, run on every save.
-- **Regression tests** (`*.spec.ts` Regression block) run axe-core WCAG AA + Best Practices audits. Heavier, run as a CI gate.
-- **Virtual screen reader tests** (`*.spec.ts` Screen Reader block) use `@guidepup/virtual-screen-reader` to verify spoken output in-process without a real screen reader. Fast enough for CI.
+- **Unit tests** (`*.spec.ts` POUR block) verify component creation, harness access, WCAG compliance (Perceivable, Understandable), and virtual screen reader output (Robust). Fast, run on every save; axe audits run as a CI gate.
+- **Virtual screen reader tests** (`*.spec.ts` Screen Reader block, sibling to POUR) use `@guidepup/virtual-screen-reader` to verify spoken output in-process without a real screen reader. Fast enough for CI.
 - **Integration tests** (`integration/*.screen-reader.spec.ts`) use Guidepup + Playwright to verify reading order and announcements with real screen readers (VoiceOver on macOS, NVDA on Windows).
 - **Story/E2E tests** (Storybook + Playwright) validate full user interaction paths across themes and viewports.
 - **Scaffolding** (this generator) ensures every new component starts with all test layers baked in.
 
 ## Virtual Screen Reader (Unit Layer)
 
-The generator adds a `describe('Screen Reader')` block to the unit spec using `@guidepup/virtual-screen-reader`. This library simulates screen reader behavior in-process (no real assistive technology required), making it fast enough to run alongside unit tests.
+The generator adds a `describe('Screen Reader')` block (sibling to POUR) to the unit spec using `@guidepup/virtual-screen-reader`. This library simulates screen reader behavior in-process (no real assistive technology required), making it fast enough to run alongside unit tests.
 
 ### Virtual Screen Reader Helpers
 
@@ -243,3 +262,8 @@ Harness tests complement axe-core by verifying **behavioral** accessibility (key
 - [axe-core helpers source](../../../../../../libs/util/test-helpers/src/lib/axe-core.functions.ts)
 - [virtual-screen-reader helpers source](../../../../../../libs/util/test-helpers/src/lib/virtual-screen-reader.helpers.ts)
 - [guidepup helpers source](../../../../../../libs/util/test-helpers/src/lib/guidepup.helpers.ts)
+- [Recite Me — POUR accessibility principles](https://reciteme.com/news/pour-accessibility-principles/)
+- [Medium — 13 guidelines of accessibility](https://medium.com/design-bootcamp/13-guidelines-of-accessibility-cb104983e223)
+- [UMich — POUR concepts and principles](https://accessibility.umich.edu/basics/concepts-principles/pour)
+- [WebYes — WCAG POUR principles](https://www.webyes.com/blogs/wcag-pour-principles-accessibility/)
+- [W3C — Understanding the four principles of accessibility](https://www.w3.org/WAI/WCAG21/Understanding/intro#understanding-the-four-principles-of-accessibility)
