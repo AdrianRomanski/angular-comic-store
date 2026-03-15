@@ -21,7 +21,10 @@
       "@angular-comic-store/test-helpers": [
         "libs/util/test-helpers/src/index.ts"
       ],
-      "@angular-comic-store/ui-card": ["libs/ui/card/src/index.ts"]
+      "@angular-comic-store/ui-card": ["libs/ui/card/src/index.ts"],
+      "@angular-comic-store/storybook-host": [
+        "libs/storybook-host/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
