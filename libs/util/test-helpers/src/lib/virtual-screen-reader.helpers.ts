@@ -1,6 +1,26 @@
 import { virtual } from '@guidepup/virtual-screen-reader';
 
 /**
+ * Virtual screen reader helpers for accessibility testing.
+ *
+ * @example Storybook play function usage
+ * ```typescript
+ * import { startVirtualScreenReader, stopVirtualScreenReader, getSpokenPhrases, expectSpokenPhrasesToContain } from '@angular-comic-store/test-helpers';
+ *
+ * play: async ({ canvasElement }) => {
+ *   await startVirtualScreenReader(canvasElement);
+ *   try {
+ *     const phrases = await getSpokenPhrases();
+ *     expect(phrases.length).toBeGreaterThan(0);
+ *     // expectSpokenPhrasesToContain(phrases, ['expected', 'announcement']);
+ *   } finally {
+ *     await stopVirtualScreenReader();
+ *   }
+ * },
+ * ```
+ */
+
+/**
  * Default timeout (ms) for virtual screen reader tests. Use {@link itScreenReader}
  * in your Screen Reader describe block so you don't repeat this value.
  */

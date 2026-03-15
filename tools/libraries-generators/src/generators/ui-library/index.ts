@@ -123,6 +123,8 @@ export default async function uiLibraryGenerator(
       'vitest-canvas-mock': '^1.1.0',
       '@guidepup/virtual-screen-reader': '^0.32.1',
       '@guidepup/guidepup': '^0.24.1',
+      '@storybook/angular': '^8.4.0',
+      '@storybook/test': '^8.4.0',
     }
   );
 
