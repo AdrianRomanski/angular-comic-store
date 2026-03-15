@@ -24,7 +24,8 @@
       "@angular-comic-store/ui-card": ["libs/ui/card/src/index.ts"],
       "@angular-comic-store/storybook-host": [
         "libs/storybook-host/src/index.ts"
-      ]
+      ],
+      "@angular-comic-store/styles": ["libs/util/styles/src/index.scss"]
     }
   },
   "exclude": ["node_modules", "tmp"]
