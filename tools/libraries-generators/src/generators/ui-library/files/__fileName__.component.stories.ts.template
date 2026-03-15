@@ -1,0 +1,52 @@
+import type { Meta, StoryObj } from '@storybook/angular';
+import { expect, userEvent, within } from '@storybook/test';
+import {
+  startVirtualScreenReader,
+  stopVirtualScreenReader,
+  getSpokenPhrases,
+  expectSpokenPhrasesToContain,
+} from '@angular-comic-store/test-helpers';
+import { <%= className %>Component } from './<%= fileName %>.component';
+
+const meta: Meta<<%= className %>Component> = {
+  component: <%= className %>Component,
+  tags: ['autodocs'],
+};
+export default meta;
+
+type Story = StoryObj<<%= className %>Component>;
+
+export const Default: Story = {
+  play: async ({ canvasElement }) => {
+    // Story Play Function — Testing Plan
+    // 1. Content verification: Assert key content is rendered (getByText, getByRole)
+    // 2. Interaction testing: Simulate user actions (userEvent.click/hover/type/keyboard)
+    // 3. Screen reader output: Virtual SR assertions run at integration level (Storybook)
+    // See TESTING.md > Storybook Play Functions for examples.
+
+    const canvas = within(canvasElement);
+
+    // 1. Content verification
+    const content = canvas.getByText(/works!/i);
+    expect(content).toBeTruthy();
+
+    // 2. Interaction testing (userEvent must be awaited)
+    // Hover interaction — works with any focusable/hoverable element
+    await userEvent.hover(content);
+
+    // When your component has buttons, inputs, or links, extend with:
+    // await userEvent.click(canvas.getByRole('button', { name: /submit/i }));
+    // await userEvent.type(canvas.getByLabelText(/email/i), 'user@example.com');
+    // await userEvent.keyboard('{Tab}');
+
+    // 3. Screen reader output (Integration layer)
+    await startVirtualScreenReader(canvasElement);
+    try {
+      const phrases = await getSpokenPhrases();
+      expect(phrases.length).toBeGreaterThan(0);
+      // expectSpokenPhrasesToContain(phrases, ['expected', 'announcement']);
+    } finally {
+      await stopVirtualScreenReader();
+    }
+  },
+};
