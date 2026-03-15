@@ -1,0 +1,24 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// Scaling Styles Architecture — main entry
+// Import this file to apply design tokens across the app.
+// Respects: prefers-color-scheme, prefers-reduced-motion (project context).
+// ─────────────────────────────────────────────────────────────────────────────
+
+@forward './mixins';
+
+@use './colors';
+@use './typography';
+@use './spacing';
+@use './motion';
+
+// Base document styles using tokens
+html {
+  color-scheme: light dark;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+}

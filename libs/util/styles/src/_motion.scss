@@ -1,0 +1,24 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// Motion — scaling styles architecture
+// Respects prefers-reduced-motion (project context requirement).
+// Animations are disabled or shortened when user prefers reduced motion.
+// ─────────────────────────────────────────────────────────────────────────────
+
+@use './tokens' as *;
+
+:root {
+  --duration-instant: #{$token-duration-instant};
+  --duration-fast: #{$token-duration-fast};
+  --duration-normal: #{$token-duration-normal};
+  --duration-slow: #{$token-duration-slow};
+}
+
+// When user prefers reduced motion, collapse all durations to 0
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-instant: 0ms;
+    --duration-fast: 0ms;
+    --duration-normal: 0ms;
+    --duration-slow: 0ms;
+  }
+}

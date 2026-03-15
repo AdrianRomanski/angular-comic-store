@@ -37,3 +37,4 @@ Numbered task index for the Angular Comic Store accessibility demo.
 | 6 | chore | Generator POUR Vitest structure | Add POUR-categorized unit test structure to ui-library generator spec template; document in TESTING.md; refs #6 | done   | `task-6-pour-vitest-structure` |
 | 7 | chore | Move Guidepup Virtual Screen Reader to Storybook | Move virtual screen reader from unit spec to Storybook play (integration layer); update generator templates, TESTING.md, project docs | done   | `task-7-guidepup-virtual-sr-storybook` |
 | 8 | chore | Storybook UI libraries setup | Add Storybook host for UI libs: @nx/storybook, storybook-host lib, @analogjs/storybook-angular, addon-a11y, stories from libs/ui/** | done   | `task-9-storybook-setup` |
+| 10 | style | Scaling styles architecture | Shared design tokens (colors, typography, spacing, motion), prefers-color-scheme and prefers-reduced-motion support, util-styles library | in-progress | `task-10-color-palette` |

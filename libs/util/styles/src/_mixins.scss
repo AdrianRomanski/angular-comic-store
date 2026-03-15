@@ -1,0 +1,23 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// Mixins — scaling styles architecture
+// Reusable SCSS mixins for components.
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// Focus ring using design tokens. WCAG visible focus indicator.
+@mixin focus-ring {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/// Respect prefers-reduced-motion for transitions.
+@mixin transition($property: all) {
+  transition: $property var(--duration-normal);
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+/// Fluid typography using clamp (optional).
+@mixin fluid-font-size($min, $preferred, $max) {
+  font-size: clamp(#{$min}, #{$preferred}, #{$max});
+}

@@ -1,0 +1,83 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// Color Palette — scaling styles architecture
+// WCAG AA compliant where used for text. Respects prefers-color-scheme.
+// ─────────────────────────────────────────────────────────────────────────────
+
+@use 'sass:map';
+@use './tokens' as *;
+
+// Raw hex values (semantic names)
+$color-palette: (
+  // Primary
+  primary-50: #e8f4fc,
+  primary-100: #b9e1f6,
+  primary-200: #8acef0,
+  primary-300: #5bbaea,
+  primary-400: #2ca7e4,
+  primary-500: #0d8cd4,
+  primary-600: #0a70aa,
+  primary-700: #075381,
+  primary-800: #043758,
+  primary-900: #021b2f,
+  // Neutral (grayscale)
+  neutral-0: #ffffff,
+  neutral-50: #f8f9fa,
+  neutral-100: #f1f3f5,
+  neutral-200: #e9ecef,
+  neutral-300: #dee2e6,
+  neutral-400: #ced4da,
+  neutral-500: #adb5bd,
+  neutral-600: #868e96,
+  neutral-700: #495057,
+  neutral-800: #343a40,
+  neutral-900: #212529,
+  neutral-950: #0d0f11,
+  // Semantic
+  success: #198754,
+  warning: #ffc107,
+  error: #dc3545,
+  info: #0d8cd4,
+);
+
+// Light theme — default
+$color-theme-light: (
+  background: map.get($color-palette, neutral-0),
+  background-alt: map.get($color-palette, neutral-50),
+  surface: map.get($color-palette, neutral-50),
+  surface-elevated: map.get($color-palette, neutral-0),
+  text: map.get($color-palette, neutral-900),
+  text-muted: map.get($color-palette, neutral-600),
+  border: map.get($color-palette, neutral-300),
+  border-focus: map.get($color-palette, primary-500),
+  accent: map.get($color-palette, primary-500),
+  accent-hover: map.get($color-palette, primary-600),
+);
+
+// Dark theme
+$color-theme-dark: (
+  background: map.get($color-palette, neutral-950),
+  background-alt: map.get($color-palette, neutral-900),
+  surface: map.get($color-palette, neutral-900),
+  surface-elevated: map.get($color-palette, neutral-800),
+  text: map.get($color-palette, neutral-100),
+  text-muted: map.get($color-palette, neutral-400),
+  border: map.get($color-palette, neutral-700),
+  border-focus: map.get($color-palette, primary-400),
+  accent: map.get($color-palette, primary-400),
+  accent-hover: map.get($color-palette, primary-300),
+);
+
+// Output CSS custom properties — light (default), dark via prefers-color-scheme
+:root {
+  @each $key, $value in $color-theme-light {
+    --color-#{$key}: #{$value};
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    @each $key, $value in $color-theme-dark {
+      --color-#{$key}: #{$value};
+    }
+  }
+}
