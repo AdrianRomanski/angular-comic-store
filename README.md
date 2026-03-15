@@ -19,8 +19,8 @@ The talk introduces a four-layer pyramid that moves from fast, automated checks 
 ```mermaid
 graph BT
     Unit["Unit Tests\nVitest + axe-core + Component Harness"]
-    Integration["Integration Tests\nGuidepup — VoiceOver / NVDA"]
-    E2E["Story Tests\nStorybook Play Functions"]
+    Integration["Integration Tests\nStorybook Play — interactions + virtual SR"]
+    E2E["E2E (Future)\nGuidepup — VoiceOver / NVDA"]
     Generators["Scaffolding\nNx Generators"]
 
     Unit --> Integration --> E2E --> Generators
@@ -29,8 +29,8 @@ graph BT
 | Layer | Tool | What it covers |
 |-------|------|----------------|
 | **Unit** | Vitest, axe-core, Angular Component Harness | WCAG violations (contrast, ARIA, roles, labels), focus management, keyboard navigation, dynamic aria updates, interactive states |
-| **Integration** | Guidepup (VoiceOver / NVDA) | Reading order, screen-reader announcements, operability for non-visual users |
-| **Story / E2E** | Storybook Play Functions | Full component stories, themes, tokens, interaction paths inside the design system |
+| **Integration** | Storybook Play | Content verification, interactions, virtual screen reader spoken output |
+| **E2E (Future)** | Guidepup + Playwright | Real VoiceOver/NVDA — when implemented |
 | **Scaffolding** | Nx Generators | Auto-generate accessible components, harnesses, stories, and tests so a11y is built-in from the start |
 
 ## Tech Stack

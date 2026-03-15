@@ -157,7 +157,8 @@ Before submitting any component, verify:
 ### Testing
 - [ ] axe-core audit passes with zero violations
 - [ ] Component Harness tests cover keyboard interaction and focus behavior
-- [ ] Screen reader integration test (Guidepup) validates reading order and announcements (where applicable)
+- [ ] Storybook play function includes virtual screen reader phase (content, interactions, spoken output)
+- [ ] Real screen reader test (Guidepup + Playwright) validates reading order and announcements where applicable (future/E2E)
 
 ## Testing Conventions
 
@@ -167,17 +168,14 @@ Before submitting any component, verify:
 - Run axe-core on the rendered fixture to catch WCAG violations
 - Use Angular Component Harness to test focus management, keyboard navigation, and dynamic ARIA updates
 - Test interactive states: disabled, loading, error, empty
+- Screen reader assertions run at the integration level (Storybook), not in unit specs
 
-### Integration Tests (Guidepup)
+### Integration Tests (Storybook Play + Virtual Screen Reader)
 
-- Validate screen reader output for critical user flows
-- Test with both VoiceOver (macOS) and NVDA (Windows) configurations
-- Assert reading order, role announcements, and live region updates
-
-### Story / E2E Tests (Storybook Play Functions)
-
-- Every presentational component has a `.stories.ts` file
-- Play functions exercise interaction paths and audit accessibility
+- Every presentational component has a `.stories.ts` file with a play function
+- Play function has three phases: content verification, user interactions, virtual screen reader output
+- Use `@guidepup/virtual-screen-reader` helpers (`startVirtualScreenReader`, `getSpokenPhrases`, etc.) against `canvasElement`
+- Validate screen reader spoken output for component content
 - Cover all visual variants: themes, sizes, states
 
 ### E2E Tests (Playwright)

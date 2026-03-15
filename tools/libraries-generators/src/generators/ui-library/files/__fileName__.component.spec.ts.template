@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-import { expectWcagAACompliant, expectBestPracticesCompliant, expectWcagACompliant, startVirtualScreenReader, stopVirtualScreenReader, getSpokenPhrases, itScreenReader } from '@angular-comic-store/test-helpers';
+import { expectWcagAACompliant, expectBestPracticesCompliant, expectWcagACompliant } from '@angular-comic-store/test-helpers';
 import { <%= className %>Component } from './<%= fileName %>.component';
 import { <%= className %>ComponentHarness } from './<%= fileName %>.component.harness';
 
@@ -68,7 +68,8 @@ describe('<%= className %>Component', () => {
 
     /**
      * Robust: content must be robust enough for assistive technologies (valid markup,
-     * name/role/value). Screen reader tests run in the block below.
+     * name/role/value). Valid semantics are exercised by axe-core; screen reader
+     * assertions run at integration level (Storybook).
      */
     describe('Robust', () => {});
   });
@@ -80,18 +81,6 @@ describe('<%= className %>Component', () => {
 
     it('should be WCAG AA compliant', async () => {
       await expectWcagAACompliant(fixture);
-    });
-  });
-
-  describe('Regression - Screen Reader', () => {
-    afterEach(async () => {
-      await stopVirtualScreenReader();
-    });
-
-    itScreenReader('should have meaningful spoken output', async () => {
-      await startVirtualScreenReader(fixture.nativeElement);
-      const phrases = await getSpokenPhrases();
-      expect(phrases.length).toBeGreaterThan(0);
     });
   });
 });

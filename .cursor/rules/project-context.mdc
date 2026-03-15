@@ -35,8 +35,8 @@ Every component must:
 ## Testing Pyramid
 
 1. **Unit** (Vitest + axe-core + Component Harness): WCAG violations, focus management, keyboard nav, aria updates
-2. **Integration** (Guidepup): Screen reader reading order, announcements, non-visual operability
-3. **Story/E2E** (Storybook Play Functions): Full interaction paths, themes, tokens
+2. **Integration** (Storybook Play): Content verification, interactions, virtual screen reader spoken output
+3. **E2E** (Future): Real VoiceOver/NVDA via Playwright when implemented
 4. **Scaffolding** (Nx Generators): Auto-generate accessible boilerplate
 
 ## Task Numbering
